@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 namespace TopDownShooter.Player
@@ -22,5 +21,14 @@ namespace TopDownShooter.Player
         {
             rigidbody.MovePosition(rigidbody.position + movement * playerModel.GetMovementSpeed() * Time.deltaTime);
         }
-    }
+
+        public void Rotate()
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 lookDirection = mousePosition - rigidbody.position;
+            float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+            rigidbody.rotation = angle - 90f;
+
+        }
+    }   
 }

@@ -13,7 +13,7 @@ namespace TopDownShooter.Player
 
         private void FixedUpdate()
         {
-
+            PlayerRotation();
         }
 
         private void PlayerMovement()
@@ -24,7 +24,7 @@ namespace TopDownShooter.Player
 
         private void PlayerRotation()
         {
-
+            playerController.Rotate();
         }
 
         public void SetPlayerController(PlayerController _playerController)
