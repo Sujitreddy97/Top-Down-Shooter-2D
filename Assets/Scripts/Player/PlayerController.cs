@@ -3,16 +3,24 @@ using UnityEngine;
 
 namespace TopDownShooter.Player
 {
-    public class PlayerController 
+    public class PlayerController
     {
         private PlayerModel playerModel;
         private PlayerView playerView;
+        private Rigidbody2D rigidbody;
 
         public PlayerController(PlayerModel _playerModel, PlayerView _playerView)
         {
             this.playerModel = _playerModel;
-            _playerModel.SetPlayerController(this);
+            this.playerModel.SetPlayerController(this);
             this.playerView = GameObject.Instantiate<PlayerView>(_playerView);
+            rigidbody = playerView.GetComponent<Rigidbody2D>();
+            this.playerView.SetPlayerController(this);
+        }
+
+        public void Move(Vector2 movement)
+        {
+            rigidbody.MovePosition(rigidbody.position + movement * playerModel.GetMovementSpeed() * Time.deltaTime);
         }
     }
 }

@@ -1,16 +1,18 @@
 using UnityEngine;
 
-public class PlayerService : MonoBehaviour
+namespace TopDownShooter.Player
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class PlayerService : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private PlayerScriptableObject playerScriptableObject;
+        [SerializeField] private PlayerView playerView;
+        private PlayerModel playerModel;
+        private PlayerController playerController;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void Awake()
+        {
+            playerModel = new PlayerModel(playerScriptableObject);
+            playerController = new PlayerController(playerModel, playerView);
+        }
     }
 }
