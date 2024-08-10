@@ -1,3 +1,4 @@
+using TopDownShooter.Bullet;
 using UnityEngine;
 
 namespace TopDownShooter.Player
@@ -6,13 +7,15 @@ namespace TopDownShooter.Player
     {
         [SerializeField] private PlayerScriptableObject playerScriptableObject;
         [SerializeField] private PlayerView playerView;
+        [SerializeField] private BulletController bulletPrefab;
+
         private PlayerModel playerModel;
         private PlayerController playerController;
 
         private void Awake()
         {
             playerModel = new PlayerModel(playerScriptableObject);
-            playerController = new PlayerController(playerModel, playerView);
+            playerController = new PlayerController(playerModel, playerView, bulletPrefab);
         }
     }
 }

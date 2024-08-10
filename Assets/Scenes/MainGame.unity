@@ -370,6 +370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerScriptableObject: {fileID: 11400000, guid: 5a65e02cc6efb28458b521c88f9fab07, type: 2}
   playerView: {fileID: 6968950877677566131, guid: c7e55e7609653ed4f93475a6a25b2b05, type: 3}
+  bulletPrefab: {fileID: 6494990828164968628, guid: 7fc8ca94851ee3c498a24199aa9ecdcd, type: 3}
 --- !u!4 &803455328
 Transform:
   m_ObjectHideFlags: 0

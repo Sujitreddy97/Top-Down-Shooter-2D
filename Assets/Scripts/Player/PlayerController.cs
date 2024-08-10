@@ -1,3 +1,4 @@
+using TopDownShooter.Bullet;
 using UnityEngine;
 
 namespace TopDownShooter.Player
@@ -7,14 +8,16 @@ namespace TopDownShooter.Player
         private PlayerModel playerModel;
         private PlayerView playerView;
         private Rigidbody2D rigidbody;
+        private BulletController bullet;
 
-        public PlayerController(PlayerModel _playerModel, PlayerView _playerView)
+        public PlayerController(PlayerModel _playerModel, PlayerView _playerView, BulletController _bullet)
         {
             this.playerModel = _playerModel;
             this.playerModel.SetPlayerController(this);
             this.playerView = GameObject.Instantiate<PlayerView>(_playerView);
             rigidbody = playerView.GetComponent<Rigidbody2D>();
             this.playerView.SetPlayerController(this);
+            this.bullet = _bullet;  
         }
 
         public void Move(Vector2 movement)
@@ -29,6 +32,14 @@ namespace TopDownShooter.Player
             float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
             rigidbody.rotation = angle - 90f;
 
+        }
+
+        public void Shoot()
+        {
+            if(Input.GetMouseButtonDown(0))
+            {
+                GameObject.Instantiate(bullet,playerView.Shootposition());
+            }
         }
     }   
 }

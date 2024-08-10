@@ -4,11 +4,14 @@ namespace TopDownShooter.Player
 {
     public class PlayerView : MonoBehaviour
     {
+        [SerializeField] private Transform shootPosition;
+
         private PlayerController playerController;
-                
+
         private void Update()
         {
             PlayerMovement();
+            PlayerShoot();
         }
 
         private void FixedUpdate()
@@ -27,9 +30,19 @@ namespace TopDownShooter.Player
             playerController.Rotate();
         }
 
+        private void PlayerShoot()
+        {
+            playerController.Shoot();
+        }
+
         public void SetPlayerController(PlayerController _playerController)
         {
             this.playerController = _playerController;
+        }
+
+        public Transform Shootposition()
+        {
+            return shootPosition;
         }
     }
 }
