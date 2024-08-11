@@ -14,8 +14,9 @@ namespace TopDownShooter.Player
 
         private void Awake()
         {
+            BulletPool bulletPool = new BulletPool(bulletPrefab);
             playerModel = new PlayerModel(playerScriptableObject);
-            playerController = new PlayerController(playerModel, playerView, bulletPrefab);
+            playerController = new PlayerController(playerModel, playerView, bulletPool);
         }
     }
 }
