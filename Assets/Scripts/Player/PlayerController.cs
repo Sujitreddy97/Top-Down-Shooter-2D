@@ -1,5 +1,7 @@
 using TopDownShooter.Bullet;
 using UnityEngine;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace TopDownShooter.Player
 {
@@ -18,12 +20,16 @@ namespace TopDownShooter.Player
             rigidbody = playerView.GetComponent<Rigidbody2D>();
             this.playerView.SetPlayerController(this);
             this.bulletPool = _bulletPool;
-         
         }
 
-        public void Move(Vector2 movement)
+        public void Move(float horizontal, float vertical)
         {
-            rigidbody.MovePosition(rigidbody.position + movement * playerModel.GetMovementSpeed() * Time.deltaTime);
+            Vector3 position = playerView.transform.position;
+            position.x += horizontal * playerModel.GetMovementSpeed() * Time.deltaTime;
+            position.y += vertical * playerModel.GetMovementSpeed() * Time.deltaTime;
+            playerView.transform.position = position;
+
+            //rigidbody.MovePosition(rigidbody.position + movement * playerModel.GetMovementSpeed() * Time.deltaTime);
         }
 
         public void Rotate()
@@ -35,7 +41,7 @@ namespace TopDownShooter.Player
 
         }
 
-        public void Shoot(Transform _spawnTransform)
+        public void Shoot(UnityEngine.Transform _spawnTransform)
         {
             if(Input.GetMouseButtonDown(0))
             {
