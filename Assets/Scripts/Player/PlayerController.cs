@@ -28,26 +28,36 @@ namespace TopDownShooter.Player
             position.x += horizontal * playerModel.GetMovementSpeed() * Time.deltaTime;
             position.y += vertical * playerModel.GetMovementSpeed() * Time.deltaTime;
             playerView.transform.position = position;
-
-            //rigidbody.MovePosition(rigidbody.position + movement * playerModel.GetMovementSpeed() * Time.deltaTime);
         }
 
-        public void Rotate()
+        public void RotateWeapon(UnityEngine.Transform _weaponTransform)
         {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 lookDirection = mousePosition - rigidbody.position;
-            float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-            rigidbody.rotation = angle - 90f;
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 direction = mousePosition - playerView.transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
+            angle += 90f;
+
+            if (angle > 90 || angle < -90)
+            {
+                _weaponTransform.localScale = new Vector3(1, -1, 1);
+                angle = angle > 0 ? angle - 180 : angle + 180;
+            }
+            else
+            {
+                _weaponTransform.localScale = Vector3.one;
+            }
+
+            _weaponTransform.rotation = Quaternion.Euler(0, 0, angle);
         }
 
         public void Shoot(UnityEngine.Transform _spawnTransform)
         {
-            if(Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 BulletController bullet = bulletPool.GetBullet();
                 bullet.ConfigureBullet(_spawnTransform);
             }
         }
-    }   
+    }
 }

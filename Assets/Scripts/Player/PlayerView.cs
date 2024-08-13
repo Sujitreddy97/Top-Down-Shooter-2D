@@ -4,18 +4,19 @@ namespace TopDownShooter.Player
 {
     public class PlayerView : MonoBehaviour
     {
+        [SerializeField] private Transform weaponTransform;
         [SerializeField] private Transform shootTransform;
         [SerializeField] private Animator animator;
         private PlayerController playerController;
         private float lastX, lastY;
 
-        
+
 
         private void Update()
         {
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
-           
+
             PlayerMovement(horizontal, vertical);
             PlayerAnimation(horizontal, vertical);
             PlayerShoot();
@@ -23,18 +24,17 @@ namespace TopDownShooter.Player
 
         private void FixedUpdate()
         {
-            //PlayerRotation();           
+            PlayerWeaponRotation();
         }
 
         private void PlayerMovement(float horizontal, float vertical)
         {
-            Vector2 movement = new Vector2(horizontal, vertical);
             playerController.Move(horizontal, vertical);
         }
 
-        private void PlayerRotation()
+        private void PlayerWeaponRotation()
         {
-            playerController.Rotate();
+            playerController.RotateWeapon(weaponTransform);
         }
 
         private void PlayerShoot()
@@ -45,18 +45,14 @@ namespace TopDownShooter.Player
 
         private void PlayerAnimation(float horizontal, float vertical)
         {
-            if (horizontal == 0 && vertical == 0)
+            bool isMoving = Mathf.Abs(horizontal) > 0.01f || Mathf.Abs(vertical) > 0.01f;
+
+            animator.SetBool("IsMoving", isMoving);
+
+            if (isMoving)
             {
-                animator.SetFloat("LastDirX", lastX);
-                animator.SetFloat("LastDirY", lastY);
-                animator.SetBool("IsMoving", false);
-            }
-            else
-            {
-                lastX = horizontal;
-                lastY = vertical;
-                animator.SetBool("IsMoving", true);
-                Debug.Log("Player is moving");
+                animator.SetFloat("Horizontal", horizontal);
+                animator.SetFloat("Vertical", vertical);
             }
         }
 
