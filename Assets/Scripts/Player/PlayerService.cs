@@ -1,6 +1,7 @@
 using TopDownShooter.Bullet;
 using UnityEngine;
 
+
 namespace TopDownShooter.Player
 {
     public class PlayerService : MonoBehaviour
@@ -8,7 +9,7 @@ namespace TopDownShooter.Player
         [SerializeField] private PlayerScriptableObject playerScriptableObject;
         [SerializeField] private PlayerView playerView;
         [SerializeField] private BulletController bulletPrefab;
-
+      
         private PlayerModel playerModel;
         private PlayerController playerController;
 

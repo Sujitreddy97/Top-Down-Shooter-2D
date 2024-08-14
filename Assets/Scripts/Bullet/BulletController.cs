@@ -6,6 +6,7 @@ namespace TopDownShooter.Bullet
     {
         [SerializeField] private float speed = 5f;
         private BulletPool bulletPool;
+        private Vector2 direction;
 
         public void Initialize(BulletPool _pool)
         {
@@ -14,7 +15,7 @@ namespace TopDownShooter.Bullet
 
         void Update()
         {
-            this.transform.Translate(Vector2.up * speed * Time.deltaTime);
+            this.transform.Translate(Vector2.right * speed * Time.deltaTime);
 
             if (IsOffScreen())
             {
@@ -30,6 +31,12 @@ namespace TopDownShooter.Bullet
             this.transform.rotation = _spawnTransform.rotation;
             
         }
+
+        public void SetDirection(Vector2 dir)
+        {
+            direction = dir.normalized;
+        }
+
 
         private bool IsOffScreen()
         {

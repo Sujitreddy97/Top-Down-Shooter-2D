@@ -1,7 +1,6 @@
 using TopDownShooter.Bullet;
 using UnityEngine;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
-using static UnityEngine.RuleTile.TilingRuleOutput;
+
 
 namespace TopDownShooter.Player
 {
@@ -36,9 +35,7 @@ namespace TopDownShooter.Player
             Vector2 direction = mousePosition - playerView.transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-            angle += 90f;
-
-            if (angle > 90 || angle < -90)
+            /*if (angle > 90 || angle < -90)
             {
                 _weaponTransform.localScale = new Vector3(1, -1, 1);
                 angle = angle > 0 ? angle - 180 : angle + 180;
@@ -46,7 +43,7 @@ namespace TopDownShooter.Player
             else
             {
                 _weaponTransform.localScale = Vector3.one;
-            }
+            }*/
 
             _weaponTransform.rotation = Quaternion.Euler(0, 0, angle);
         }
@@ -57,6 +54,7 @@ namespace TopDownShooter.Player
             {
                 BulletController bullet = bulletPool.GetBullet();
                 bullet.ConfigureBullet(_spawnTransform);
+                //bullet.SetDirection(_spawnTransform.right);
             }
         }
     }

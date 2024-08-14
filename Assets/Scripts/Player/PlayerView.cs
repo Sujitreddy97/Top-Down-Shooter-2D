@@ -9,8 +9,13 @@ namespace TopDownShooter.Player
         [SerializeField] private Animator animator;
         private PlayerController playerController;
         private float lastX, lastY;
+        private GameObject mainCamera;
 
-
+        private void Start()
+        {
+            mainCamera = GameObject.Find("Main Camera");
+            mainCamera.transform.SetParent(this.transform);
+        }
 
         private void Update()
         {
@@ -25,6 +30,11 @@ namespace TopDownShooter.Player
         private void FixedUpdate()
         {
             PlayerWeaponRotation();
+        }
+
+        private void LateUpdate()
+        {
+            mainCamera.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -10f);
         }
 
         private void PlayerMovement(float horizontal, float vertical)
